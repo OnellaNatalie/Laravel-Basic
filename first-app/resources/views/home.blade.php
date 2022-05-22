@@ -36,7 +36,7 @@
       <div class="card-body">
         <h5 class="card-title">View Order Details</h5>
         <p class="card-text"></p>
-        <a href="{{ url('viewOrderDetails')}}" class="btn btn-primary">VIew</a>
+        <a href="{{ url('/viewOder')}}" class="btn btn-primary">VIew</a>
       </div>
     </div>
   </div>
