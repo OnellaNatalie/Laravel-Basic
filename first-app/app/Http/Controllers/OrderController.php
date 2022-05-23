@@ -73,11 +73,13 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function edit(Request $request)
     {
-        $order_id = $request->get(id);
-        $order = Order::Where('id',$id)->get();
-        // print($order);
+        $order_id = $request->id;
+        $orderEdit = Order::Where('id',$order_id)->get();
+        print($orderEdit);
+         return view('editOrder', compact('orderEdit'));
     }
 
     /**
@@ -94,18 +96,20 @@ class OrderController extends Controller
         $amount= $request->amount;
         $price= $request->price;
 
-        $order = User::findOrFail($id);
+        $order = Order::findOrFail($id);
 
         $order_data = array(
             'id'=>$id,
-            'name'=>name,
-            'description'=>description,
-            'amount'=>amount,
-            'price'=>price);
+            'name'=>$name,
+            'description'=>$description,
+            'amount'=>$amount,
+            'price'=>$price);
 
         $order->update($order_data);
-
+$redirect = "sccuess";
         return redirect('/oder/show');
+                return view('summary', compact('redirect'));
+
 
     }
 
