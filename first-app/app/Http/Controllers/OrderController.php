@@ -58,9 +58,13 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $orderView = Order::all();
+        // $order = DB::table('Order')->get();
+        // print($orderView);
+
+        return view('viewOrderDetails', compact('orderView'));
     }
 
     /**
@@ -69,9 +73,11 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        $order_id = $request->get(id);
+        $order = Order::Where('id',$id)->get();
+        // print($order);
     }
 
     /**
@@ -81,9 +87,26 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $name= $request->name;
+        $description= $request->description;
+        $amount= $request->amount;
+        $price= $request->price;
+
+        $order = User::findOrFail($id);
+
+        $order_data = array(
+            'id'=>$id,
+            'name'=>name,
+            'description'=>description,
+            'amount'=>amount,
+            'price'=>price);
+
+        $order->update($order_data);
+
+        return redirect('/oder/show');
+
     }
 
     /**
