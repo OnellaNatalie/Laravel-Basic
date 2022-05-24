@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Exception;
 class OrderController extends Controller
 {
     /**
@@ -60,11 +61,10 @@ class OrderController extends Controller
      */
     public function show()
     {
-        $orderView = Order::all();
-        // $order = DB::table('Order')->get();
-        // print($orderView);
-
-        return view('viewOrderDetails', compact('orderView'));
+        // $orderView = Order::all();
+        $order = DB::table('order')->get();
+       
+        return view('viewOrderDetails', compact('order'));
     }
 
     /**
@@ -77,9 +77,10 @@ class OrderController extends Controller
     public function edit(Request $request)
     {
         $order_id = $request->id;
-        $orderEdit = Order::Where('id',$order_id)->get();
-        print($orderEdit);
-         return view('editOrder', compact('orderEdit'));
+        $order = order::Where('id',$order_id)->get();
+        print($order);
+       
+         return view('editOrder', compact('order'));
     }
 
     /**
@@ -91,25 +92,26 @@ class OrderController extends Controller
      */
     public function update(Request $request)
     {
-        $name= $request->name;
-        $description= $request->description;
-        $amount= $request->amount;
-        $price= $request->price;
-
-        $order = Order::findOrFail($id);
-
-        $order_data = array(
-            'id'=>$id,
+        $id = $request->get('id');
+        $name = $request-> get('name');
+        $description = $request-> description;
+        $amount = $request-> amount;
+        $price = $request-> price;
+        
+        
+        $order = DB::table('order')
+        ->where('id',$id)
+        ->update([
             'name'=>$name,
             'description'=>$description,
             'amount'=>$amount,
-            'price'=>$price);
+            'price'=>$price]);
 
-        $order->update($order_data);
-$redirect = "sccuess";
-        return redirect('/oder/show');
-                return view('summary', compact('redirect'));
+    
 
+        return redirect('/order/show')->with('flash_message', 'Your Order is Updated!');
+  
+    
 
     }
 

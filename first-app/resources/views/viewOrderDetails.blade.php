@@ -16,18 +16,18 @@
 	</tr>
 </th>
   <tbody>
-    @foreach ($orderView as $orders)
+    @foreach ($order as $order)
         
    
     <tr>
       
-      <th scope="row" class="thead-light col-3">{{ $orders->id }}</th>
-      <td>{{ $orders->name }}</td>
-      <td>{{ $orders->description }}</td>
-      <td>{{ $orders->amount }}</td>
-      <td>{{ $orders->price }}</td>
+      <th scope="row" class="thead-light col-3">{{ $order->id }}</th>
+      <td>{{ $order->name }}</td>
+      <td>{{ $order->description }}</td>
+      <td>{{ $order->amount }}</td>
+      <td>{{ $order->price }}</td>
       <td>
-        <a href="/order/edit?id={{$orders->id}}"
+        <a href="/edit?id={{$order->id}}"
         <button>Edit</button>
         </a></td>
     </tr>
