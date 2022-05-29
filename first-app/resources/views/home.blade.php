@@ -25,7 +25,7 @@
   <div class="col-sm-4">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Order Details</h5>
+        <h5 class="card-title">Add Order Details</h5>
         <p class="card-text"></p>
         <a href="{{ url('/addOrderDetails')}}" class="btn btn-primary">Order</a>
       </div>

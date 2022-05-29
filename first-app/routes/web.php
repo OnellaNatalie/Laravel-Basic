@@ -36,8 +36,8 @@ Route::get('/addOrderDetails',  function () {
 // Route::post('/order/store', 'OrderController@store')->name('orderStore');
 Route::post('/order/store', [App\Http\Controllers\OrderController::class, 'store']);
 Route::get('/order/show', [App\Http\Controllers\OrderController::class, 'show']);
-Route::get('edit', [App\Http\Controllers\OrderController::class, 'edit']);
+Route::get('/edit', [App\Http\Controllers\OrderController::class, 'edit'])->name('order.edit');
 Route::post('update', [App\Http\Controllers\OrderController::class, 'update']);
-
+Route::get('/delete', [App\Http\Controllers\OrderController::class, 'destroy'])->name('order.delete');
 
 

@@ -1,6 +1,10 @@
 @extends('layouts.app')
 @section('content')
-
+{{-- @if(session()->has('message'))
+    <div class="alert alert-success">
+        {{ session()->get('message') }}
+    </div>
+@endif --}}
    <p class="text-xl-start fs-2 container">View Order</p>
 <div class="table-responsive card w-75 container">
 
@@ -13,6 +17,7 @@
       <th scope="col">Amount</th>
       <th scope="col">Price</th>
       <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
 	</tr>
 </th>
   <tbody>
@@ -27,11 +32,27 @@
       <td>{{ $order->amount }}</td>
       <td>{{ $order->price }}</td>
       <td>
-        <a href="/edit?id={{$order->id}}"
-        <button>Edit</button>
-        </a></td>
-    </tr>
+        <ul class="nav nav-pills">
+          <li class="nav-item">
+          <a href="/edit?id={{$order->id}}"
+          class="nav-link active">Edit
+          </a>
+        </li>
+        </ul>
+      
+      </td>
 
+      <td>
+         <ul class="nav nav-pills">
+          <li class="nav-item">
+        <a href="/delete?id={{$order->id}}"
+          class="nav-link active">Delete
+          </a>
+        </li>
+        </ul>
+      </td>
+    </tr>
+ 
    @endforeach
   </tbody>
   </table>

@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\MessageBag;
+use Illuminate\Support\Facades\Session;
 use Exception;
 class OrderController extends Controller
 {
@@ -37,6 +39,13 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        //validation 
+        $request->validate([
+            'name'=>'required',
+            'description'=>'required',
+            'amount'=>'required|numeric',
+            'price'=>'required|numeric',
+        ]);
         // $id = Auth::id();
           $name = $request-> name;
         $description = $request-> description;
@@ -49,8 +58,8 @@ class OrderController extends Controller
             'description'=>$description, 
             'amount'=>$amount, 
             'price'=>$price]);
-
-    return redirect('/viewOder');
+            session()->flash('message','successfully added');
+    return redirect('/order/show');
     }
 
     /**
@@ -78,11 +87,13 @@ class OrderController extends Controller
     {
         $order_id = $request->id;
         $order = order::Where('id',$order_id)->get();
-        print($order);
+        // print($order);
        
          return view('editOrder', compact('order'));
     }
 
+
+  
     /**
      * Update the specified resource in storage.
      *
@@ -106,12 +117,9 @@ class OrderController extends Controller
             'description'=>$description,
             'amount'=>$amount,
             'price'=>$price]);
-
-    
-
+        session()->flash('message','successfully Updated');
         return redirect('/order/show')->with('flash_message', 'Your Order is Updated!');
   
-    
 
     }
 
@@ -121,8 +129,11 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->get('id');
+        Order::findOrFail($id)->delete();
+        session()->flash('message','successfully Deleted');
+        return back();
     }
 }
